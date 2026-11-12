@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10263c">
+  <title>KPI | Middle East SPMadrid Performance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #122a40;
+      --muted: #748395;
+      --line: #e4eaf0;
+      --paper: #f3f6f8;
+      --navy: #102b45;
+      --blue: #2874c8;
+      --teal: #087c72;
+      font-family: "DM Sans", "Trebuchet MS", sans-serif;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: radial-gradient(ellipse at 92% 3%, rgba(39,116,200,.08), transparent 28rem), linear-gradient(135deg,#f8fafb 0%,var(--paper) 55%,#eef4f3 100%);
+    }
+    button, select { font: inherit; }
+    a:focus-visible, select:focus-visible { outline: 3px solid #45b7aa; outline-offset: 3px; }
+    .shell { max-width: 1600px; margin: 0 auto; padding: 20px 24px 28px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 22px; color: #fff; border-radius: 8px; background: linear-gradient(105deg,#10263c,#173b58 73%,#145c5b); box-shadow: 0 8px 24px rgba(17,43,66,.12); }
+    .identity { display: flex; align-items: center; gap: 14px; min-width: 0; }
+    .brand-mark { display: block; position: relative; width: 46px; height: 30px; flex: 0 0 auto; overflow: hidden; border: 1px solid rgba(255,255,255,.35); border-radius: 3px; background: linear-gradient(to bottom,#009a49 0 33.33%,#fff 33.33% 66.66%,#111 66.66% 100%); }
+    .brand-mark::before { position: absolute; inset: 0 auto 0 0; width: 12px; background: #ed2939; content: ""; }
+    h1, h2, h3, h4, p { margin: 0; }
+    h1, h2, h3, h4, .tab-link, .eyebrow, .stat-label, .chart-title { font-family: "Barlow Condensed","Arial Narrow",sans-serif; letter-spacing: 0; }
+    h1 { font-size: clamp(24px,3vw,36px); line-height: 1; font-weight: 800; text-transform: uppercase; }
+    .subtitle { margin-top: 6px; color: #b8cbd7; font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase; }
+    .subtitle a { color: inherit; text-decoration: none; }
+    .subtitle a:hover, .subtitle a[aria-current="page"] { color: #fff; }
+    .subtitle a:focus-visible { outline: 2px solid #45b7aa; outline-offset: 3px; }
+    .header-tools { display: flex; align-items: center; gap: 18px; }
+    .live-note { display: flex; align-items: center; gap: 8px; color: #d6e5e9; font-size: 12px; white-space: nowrap; }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #68d29b; box-shadow: 0 0 0 4px rgba(104,210,155,.13); }
+    .period-control { display: grid; gap: 4px; }
+    .period-control label { color: #a9bfce; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+    .period-control select { min-width: 132px; padding: 8px 28px 8px 10px; color: #fff; border: 1px solid rgba(255,255,255,.24); border-radius: 5px; background: #21435b; }
+    .period-control option { color: var(--ink); background: #fff; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin: 24px 2px 12px; }
+    .section-heading h2 { font-size: 23px; line-height: 1; font-weight: 700; text-transform: uppercase; }
+    .section-heading p { margin-top: 5px; color: var(--muted); font-size: 12px; }
+    .view-links { display: flex; align-items: center; border-bottom: 1px solid #ccd7df; }
+    .tab-link { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 12px 19px; color: #6a7c8b; font-size: 16px; font-weight: 700; text-decoration: none; text-transform: uppercase; }
+    .tab-link::after { position: absolute; right: 12px; bottom: -1px; left: 12px; height: 3px; background: transparent; content: ""; }
+    .tab-link[aria-current="page"] { color: var(--navy); }
+    .tab-link[aria-current="page"]::after { background: #13a58b; }
+    .tab-icon { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 6px; background: #e5eeef; font-family: "DM Sans",sans-serif; font-size: 13px; }
+    .tab-link[aria-current="page"] .tab-icon { color: #fff; background: #148d7b; }
+    .summary-grid { display: grid; grid-template-columns: minmax(290px,1.05fr) minmax(360px,1.65fr); gap: 10px; padding-top: 16px; }
+    .panel { min-width: 0; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.93); }
+    .panel-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 10px; color: #fff; border-radius: 5px; background: #173b76; }
+    .panel-head h3 { font-size: 15px; font-weight: 700; text-transform: uppercase; }
+    .panel-head span { color: #d5e0ef; font-size: 9px; }
+    .collection-main { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 16px; padding: 15px 5px 12px; }
+    .big-ring { display: grid; width: 145px; aspect-ratio: 1; place-items: center; margin: auto; border-radius: 50%; background: conic-gradient(#8dbf2d 55%,#e7ebea 0); position: relative; }
+    .big-ring::before { position: absolute; inset: 13px; border-radius: 50%; background: #fff; content: ""; }
+    .big-ring strong { position: relative; color: #111f2a; font-family: "Barlow Condensed",sans-serif; font-size: 39px; }
+    .collection-amount { display: grid; gap: 10px; }
+    .collection-amount small { display: block; color: var(--muted); font-size: 10px; }
+    .collection-amount strong { font-family: "Barlow Condensed",sans-serif; font-size: 22px; line-height: 1; }
+    .mini-progress { height: 8px; overflow: hidden; border-radius: 20px; background: #e8edf0; }
+    .mini-progress span { display: block; width: 55%; height: 100%; border-radius: inherit; background: #8dbf2d; }
+    .stat-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+    .stat-box { min-height: 67px; padding: 9px; border: 1px solid #e7ebed; border-radius: 5px; background: #fff; }
+    .stat-label { display: block; color: #72808b; font-size: 10px; font-weight: 600; text-transform: uppercase; }
+    .stat-box strong { display: block; margin-top: 5px; font-family: "Barlow Condensed",sans-serif; font-size: 24px; line-height: 1; }
+    .stat-box em { display: block; margin-top: 4px; color: #1c9a67; font-size: 9px; font-style: normal; }
+    .stat-box em.down { color: #d96f35; }
+    .fip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 10px; }
+    .fip-combined { grid-column: 1/-1; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid #e7ebed; border-radius: 5px; }
+    .fip-combined h4, .fip-card h4 { font-family: "Barlow Condensed",sans-serif; font-size: 14px; text-transform: uppercase; }
+    .fip-combined p, .fip-card p { margin-top: 3px; color: var(--muted); font-size: 9px; }
+    .fip-combined strong { font-family: "Barlow Condensed",sans-serif; font-size: 22px; }
+    .fip-card { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 10px; padding: 9px; border: 1px solid #e7ebed; border-radius: 5px; }
+    .fip-card p strong { color: var(--blue); }
+    .small-ring { display: grid; width: 58px; aspect-ratio: 1; place-items: center; border-radius: 50%; background: conic-gradient(#2878d1 var(--amount),#e8ecef 0); position: relative; }
+    .small-ring::before { position: absolute; inset: 6px; border-radius: 50%; background: #fff; content: ""; }
+    .small-ring strong { position: relative; font-family: "Barlow Condensed",sans-serif; font-size: 18px; }
+    .section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 19px 2px 9px; }
+    .section-title h2 { font-size: 18px; text-transform: uppercase; }
+    .section-title p { color: var(--muted); font-size: 10px; }
+    .charts-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+    .chart-panel { min-width: 0; padding: 11px; border: 1px solid var(--line); border-radius: 8px; background: rgba(255,255,255,.92); }
+    .chart-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
+    .chart-title { font-size: 13px; font-weight: 700; text-transform: uppercase; }
+    .chart-unit { color: var(--muted); font-size: 9px; }
+    .bar-chart { display: flex; height: 112px; align-items: end; justify-content: space-around; gap: 7px; padding: 8px 5px 0; border-bottom: 1px solid #dfe6eb; background: repeating-linear-gradient(to bottom,transparent 0,transparent 25px,#edf1f4 26px); }
+    .bar-group { display: flex; height: 100%; flex: 1; flex-direction: column; align-items: center; justify-content: end; gap: 4px; min-width: 0; }
+    .bar { position: relative; width: min(25px,76%); min-height: 4px; border-radius: 3px 3px 0 0; background: #7893dc; }
+    .bar::after { position: absolute; right: 0; bottom: 0; left: 0; height: var(--portion,24%); border-radius: 3px 3px 0 0; background: #1683e8; content: ""; }
+    .bar-group span { color: #7a8792; font-size: 8px; white-space: nowrap; }
+    .legend { display: flex; justify-content: center; gap: 12px; margin-top: 8px; color: #6f7e8a; font-size: 8px; }
+    .legend span { display: inline-flex; align-items: center; gap: 4px; }
+    .legend i { width: 7px; height: 7px; border-radius: 2px; background: #7893dc; }
+    .legend span + span i { background: #1683e8; }
+    .trend-chart { width: 100%; height: 112px; overflow: visible; }
+    .trend-chart .gridline { stroke: #e8edf1; stroke-width: 1; }
+    .trend-chart .line { fill: none; stroke: #3787eb; stroke-width: 2.5; }
+    .trend-chart .point { fill: #fff; stroke: #3787eb; stroke-width: 2; }
+    .trend-labels { display: flex; justify-content: space-between; padding: 2px 3px 0; color: #7b8995; font-size: 8px; }
+    .footnote { margin: 12px 2px 0; color: #768593; font-size: 10px; text-align: right; }
+    @media (max-width: 900px) { .summary-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 700px) {
+      .shell { padding: 12px 12px 22px; }
+      .topbar { align-items: flex-start; padding: 15px; }
+      .header-tools { align-items: flex-end; flex-direction: column-reverse; gap: 9px; }
+      .live-note { font-size: 10px; }
+      .brand-mark { width: 40px; height: 26px; }
+      .subtitle { max-width: 240px; font-size: 9px; letter-spacing: 1px; }
+      .section-heading { align-items: flex-start; flex-direction: column; margin-top: 20px; }
+      .view-links { width: 100%; }
+      .tab-link { flex: 1; padding: 12px 8px; font-size: 15px; }
+      .collection-main { grid-template-columns: 122px 1fr; }
+      .big-ring { width: 115px; }
+      .big-ring::before { inset: 11px; }
+      .fip-card { grid-template-columns: 54px 1fr; gap: 7px; padding: 7px; }
+      .small-ring { width: 50px; }
+      .small-ring::before { inset: 5px; }
+      .charts-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 430px) {
+      .identity { gap: 8px; }
+      .topbar { gap: 8px; padding: 12px; }
+      h1 { font-size: 22px; }
+      .brand-mark { width: 36px; height: 24px; }
+      .period-control select { min-width: 112px; padding: 7px 22px 7px 7px; font-size: 11px; }
+      .live-note { font-size: 9px; }
+      .stat-strip { gap: 4px; }
+      .stat-box { padding: 7px 5px; }
+      .stat-label { font-size: 8px; }
+      .stat-box strong { font-size: 19px; }
+      .collection-main { grid-template-columns: 105px 1fr; gap: 10px; }
+      .big-ring { width: 100px; }
+      .big-ring strong { font-size: 32px; }
+      .collection-amount strong { font-size: 18px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="identity">
+        <a class="brand-mark" href="secret.html" aria-label="Open secret menu"></a>
+        <div><h1>Middle East SPMadrid Performance</h1><p class="subtitle"><a href="index.html">Productivity</a> / <a href="kpi.html" aria-current="page">KPI</a></p></div>
+      </div>
+      <div class="header-tools">
+        <div class="live-note"><span class="live-dot" aria-hidden="true"></span><span>Performance overview</span></div>
+        <div class="period-control"><label for="period-select">Reporting period</label><select id="period-select"><option>November 2026</option><option>October 2026</option><option>September 2026</option></select></div>
+      </div>
+    </header>
+    <div class="summary-grid">
+      <section class="panel" aria-labelledby="collection-title">
+        <div class="panel-head"><h3 id="collection-title">Overall collection</h3><span>Current month</span></div>
+        <div class="collection-main">
+          <div class="big-ring" role="img" aria-label="55 percent of collection goal achieved"><strong>55%</strong></div>
+          <div class="collection-amount"><div><small>Current collection</small><strong>AED 1,625,958</strong></div><div class="mini-progress" aria-hidden="true"><span></span></div><small>Goal · AED 2,940,501</small></div>
+        </div>
+        <div class="stat-strip">
+          <div class="stat-box"><span class="stat-label">Payment count</span><strong>173</strong><em class="down">▼ 26.38%</em></div>
+          <div class="stat-box"><span class="stat-label">Total collections</span><strong>200,429</strong><em>▲ 3.81%</em></div>
+          <div class="stat-box"><span class="stat-label">Total amount</span><strong>71,409</strong><em class="down">AED</em></div>
+        </div>
+      </section>
+      <section class="panel" aria-labelledby="fip-title">
+        <div class="panel-head"><h3 id="fip-title">Overall FIP</h3><span>By market</span></div>
+        <div class="fip-grid">
+          <article class="fip-combined"><div><h4>Combined rate (FIP vs goal)</h4><p>Current month · all markets</p></div><strong>43%</strong></article>
+          <article class="fip-card"><div class="small-ring" style="--amount:74%" role="img" aria-label="UAE FIP 74 percent"><strong>74%</strong></div><div><h4>HSBC UAE</h4><p>Current <strong>732,400</strong> · Goal 1.0M</p></div></article>
+          <article class="fip-card"><div class="small-ring" style="--amount:38%" role="img" aria-label="DHD FIP 38 percent"><strong>38%</strong></div><div><h4>DHD</h4><p>Current <strong>152,600</strong> · Goal 400K</p></div></article>
+          <article class="fip-card"><div class="small-ring" style="--amount:30%" role="img" aria-label="Dubai FIP 30 percent"><strong>30%</strong></div><div><h4>Dubai</h4><p>Current <strong>90,300</strong> · Goal 300K</p></div></article>
+          <article class="fip-card"><div class="small-ring" style="--amount:37%" role="img" aria-label="Egypt FIP 37 percent"><strong>37%</strong></div><div><h4>Egypt</h4><p>Current <strong>111,000</strong> · Goal 300K</p></div></article>
+        </div>
+      </section>
+    </div>
+
+    <div class="section-title"><h2>HSBC UAE allocation</h2><p>Monthly allocation · count and amount</p></div>
+    <div class="charts-grid">
+      <section class="chart-panel">
+        <div class="chart-heading"><h3 class="chart-title">SPAN allocation count</h3><span class="chart-unit">accounts</span></div>
+        <div class="bar-chart" role="img" aria-label="Monthly account allocation counts from January to June"><div class="bar-group"><div class="bar" style="height:80%;--portion:28%"></div><span>Jan</span></div><div class="bar-group"><div class="bar" style="height:82%;--portion:25%"></div><span>Feb</span></div><div class="bar-group"><div class="bar" style="height:84%;--portion:30%"></div><span>Mar</span></div><div class="bar-group"><div class="bar" style="height:82%;--portion:23%"></div><span>Apr</span></div><div class="bar-group"><div class="bar" style="height:81%;--portion:27%"></div><span>May</span></div><div class="bar-group"><div class="bar" style="height:83%;--portion:25%"></div><span>Jun</span></div></div>
+        <div class="legend"><span><i></i>Allocated</span><span><i></i>New</span></div>
+      </section>
+      <section class="chart-panel">
+        <div class="chart-heading"><h3 class="chart-title">SPAN allocation amount</h3><span class="chart-unit">AED</span></div>
+        <svg class="trend-chart" viewBox="0 0 360 120" preserveAspectRatio="none" role="img" aria-label="Monthly allocated amount trend from January to June"><defs><linearGradient id="fill-one" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6ca9fa" stop-opacity=".35"/><stop offset="1" stop-color="#6ca9fa" stop-opacity=".02"/></linearGradient></defs><path class="gridline" d="M0 22H360M0 49H360M0 76H360M0 103H360"/><path d="M10 61 78 52 146 55 214 47 282 48 350 59V108H10Z" fill="url(#fill-one)"/><path class="line" d="M10 61 78 52 146 55 214 47 282 48 350 59"/><circle class="point" cx="10" cy="61" r="3"/><circle class="point" cx="78" cy="52" r="3"/><circle class="point" cx="146" cy="55" r="3"/><circle class="point" cx="214" cy="47" r="3"/><circle class="point" cx="282" cy="48" r="3"/><circle class="point" cx="350" cy="59" r="3"/></svg>
+        <div class="trend-labels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span></div>
+      </section>
+      <section class="chart-panel">
+        <div class="chart-heading"><h3 class="chart-title">DHD allocation count</h3><span class="chart-unit">accounts</span></div>
+        <div class="bar-chart" role="img" aria-label="Monthly DHD account allocation counts from January to June"><div class="bar-group"><div class="bar" style="height:72%;--portion:25%"></div><span>Jan</span></div><div class="bar-group"><div class="bar" style="height:75%;--portion:22%"></div><span>Feb</span></div><div class="bar-group"><div class="bar" style="height:78%;--portion:27%"></div><span>Mar</span></div><div class="bar-group"><div class="bar" style="height:77%;--portion:24%"></div><span>Apr</span></div><div class="bar-group"><div class="bar" style="height:81%;--portion:29%"></div><span>May</span></div><div class="bar-group"><div class="bar" style="height:79%;--portion:26%"></div><span>Jun</span></div></div>
+        <div class="legend"><span><i></i>Allocated</span><span><i></i>New</span></div>
+      </section>
+      <section class="chart-panel">
+        <div class="chart-heading"><h3 class="chart-title">DHD allocation amount</h3><span class="chart-unit">AED</span></div>
+        <svg class="trend-chart" viewBox="0 0 360 120" preserveAspectRatio="none" role="img" aria-label="Monthly DHD allocated amount trend from January to June"><defs><linearGradient id="fill-two" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6ca9fa" stop-opacity=".35"/><stop offset="1" stop-color="#6ca9fa" stop-opacity=".02"/></linearGradient></defs><path class="gridline" d="M0 22H360M0 49H360M0 76H360M0 103H360"/><path d="M10 42 78 45 146 68 214 73 282 68 350 62V108H10Z" fill="url(#fill-two)"/><path class="line" d="M10 42 78 45 146 68 214 73 282 68 350 62"/><circle class="point" cx="10" cy="42" r="3"/><circle class="point" cx="78" cy="45" r="3"/><circle class="point" cx="146" cy="68" r="3"/><circle class="point" cx="214" cy="73" r="3"/><circle class="point" cx="282" cy="68" r="3"/><circle class="point" cx="350" cy="62" r="3"/></svg>
+        <div class="trend-labels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span></div>
+      </section>
+      <section class="chart-panel">
+        <div class="chart-heading"><h3 class="chart-title">Dubai allocation count</h3><span class="chart-unit">accounts</span></div>
+        <div class="bar-chart" role="img" aria-label="Monthly Dubai account allocation counts from January to June"><div class="bar-group"><div class="bar" style="height:66%;--portion:21%"></div><span>Jan</span></div><div class="bar-group"><div class="bar" style="height:72%;--portion:24%"></div><span>Feb</span></div><div class="bar-group"><div class="bar" style="height:75%;--portion:22%"></div><span>Mar</span></div><div class="bar-group"><div class="bar" style="height:78%;--portion:27%"></div><span>Apr</span></div><div class="bar-group"><div class="bar" style="height:76%;--portion:25%"></div><span>May</span></div><div class="bar-group"><div class="bar" style="height:80%;--portion:29%"></div><span>Jun</span></div></div>
+        <div class="legend"><span><i></i>Allocated</span><span><i></i>New</span></div>
+      </section>
+      <section class="chart-panel">
+        <div class="chart-heading"><h3 class="chart-title">Dubai allocation amount</h3><span class="chart-unit">AED</span></div>
+        <svg class="trend-chart" viewBox="0 0 360 120" preserveAspectRatio="none" role="img" aria-label="Monthly Dubai allocated amount trend from January to June"><defs><linearGradient id="fill-three" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6ca9fa" stop-opacity=".35"/><stop offset="1" stop-color="#6ca9fa" stop-opacity=".02"/></linearGradient></defs><path class="gridline" d="M0 22H360M0 49H360M0 76H360M0 103H360"/><path d="M10 40 78 53 146 70 214 80 282 74 350 70V108H10Z" fill="url(#fill-three)"/><path class="line" d="M10 40 78 53 146 70 214 80 282 74 350 70"/><circle class="point" cx="10" cy="40" r="3"/><circle class="point" cx="78" cy="53" r="3"/><circle class="point" cx="146" cy="70" r="3"/><circle class="point" cx="214" cy="80" r="3"/><circle class="point" cx="282" cy="74" r="3"/><circle class="point" cx="350" cy="70" r="3"/></svg>
+        <div class="trend-labels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span></div>
+      </section>
+    </div>
+    <p class="footnote">Illustrative dashboard values · reporting period: <span id="period-output">November 2026</span></p>
+  </main>
+  <script>
+    const periodSelect = document.querySelector('#period-select');
+    periodSelect.addEventListener('change', () => {
+      document.querySelector('#period-output').textContent = periodSelect.value;
+    });
+  </script>
+</body>
+</html>
